@@ -73,7 +73,7 @@ echo "===================================================="
 # Ajout de la clé GPG pour les paquets Kubernetes
 K8S_VERSION=v1.31
 sudo mkdir -p -m 755 /etc/apt/keyrings
-curl -fsSL https://k8s.io{K8S_VERSION}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+curl -fsSL https://k8s.io${K8S_VERSION}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
 # Ajout du dépôt de paquets Kubernetes v1.31
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://k8s.io{K8S_VERSION}/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
