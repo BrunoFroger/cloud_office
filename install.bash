@@ -65,7 +65,7 @@ sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/con
 # Redémarrage de containerd pour appliquer la configuration
 echo "================= redemarrage containerd ====================="
 sudo systemctl restart containerd
-sudo systemctl enable gontainerg
+sudo systemctl enable containerd
 
 echo "===================================================="
 echo " Installation de Kubeadm, Kubelet et Kubectl (v1.31)"
