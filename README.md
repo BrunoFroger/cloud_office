@@ -28,6 +28,8 @@ procedure d'installation
         - git clone git@github.com:BrunoFroger/cloud_office.git
         - recuperer @IP (adresse_IP) : ifconfig | grep "192.168"
 - sur machine distante (dev)
+    - copier cle ssh locale sur serveur afin de ne pas avoir a saisir le mot de passe lors des sessions ssh
+        - ssh-copy-id k8smaster@k8smaster
     - ouvrir un terminal et se connecter au serveur
         - ssh k8smaster@adresse_IP
             - recuperer script d'installation :
