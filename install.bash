@@ -71,7 +71,7 @@ echo "===================================================="
 echo " Installation de Kubeadm, Kubelet et Kubectl (v1.31)"
 echo "===================================================="
 # Ajout de la clé GPG pour les paquets Kubernetes
-K8S_VERSION=v1.31
+K8S_VERSION=v1.37
 sudo mkdir -p -m 755 /etc/apt/keyrings
 curl -fsSL https://pkgs.k8s.io/core:/stable:/${K8S_VERSION}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
