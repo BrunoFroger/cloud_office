@@ -58,10 +58,12 @@ sudo apt-get install -y containerd.io
 # Configuration par défaut de containerd avec SystemdCgroup activé
 echo "================= configuration de containerd  ==============="
 sudo mkdir -p /etc/containerd
+echo "================= mise a jour config.toml ===================="
 containerd config default | sudo tee /etc/containerd/config.toml > /dev/null
 sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.toml
 
 # Redémarrage de containerd pour appliquer la configuration
+echo "================= redemarrage containerd ====================="
 sudo systemctl restart containerd
 sudo systemctl enable gontainerg
 
