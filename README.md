@@ -12,7 +12,7 @@ procedure d'installation
         - nom machine k8smaster
         - nom utilisateur : k8smaster
         - passwd : k8s&master
-- qpres installation sur machine cible (serveur)
+- apres installation sur machine cible (serveur)
     - mettre a jour os
         - sudo apt-get update
         - sudo apt-get -y upgrade
@@ -26,7 +26,12 @@ procedure d'installation
 - sur machine cible (serveur)
     - recuperer depot git d'install
         - git clone git@github.com:BrunoFroger/cloud_office.git
-        - recuperer @IP : ifconfig | grep "192.168"
+        - recuperer @IP (adresse_IP) : ifconfig | grep "192.168"
 - sur machine distante (dev)
-    - se connecter au serveur
-        - ssh 
+    - ouvrir un terminal et se connecter au serveur
+        - ssh k8smaster@adresse_IP
+            - recuperer script d'installation :
+                - cd cloud_office
+                - git pull
+                - . ./install.bash
+    
