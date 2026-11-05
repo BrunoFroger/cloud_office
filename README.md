@@ -39,6 +39,7 @@ procedure d'installation
                 - cd cloud_office
                 - git pull
             - installation communes a tous les noeuds
+                - cd scripts
                 - . ./install_k8s.bash
             - installation du master
                 - . ./install_k8s_master.bash

@@ -1,0 +1,41 @@
+Kubernetes ne gère pas nativement une base de données d'utilisateurs ou une interface graphique intégrée pour créer des utilisateurs humains. L'authentification est déléguée à des systèmes externes (certificats TLS, OpenID Connect / OIDC, ou Webhook), tandis que les autorisations sont gérées via RBAC (Role-Based Access Control).
+Pour gérer les accès et les utilisateurs sur un cluster Kubernetes, voici la méthode et les outils standards :
+
+1. Comprendre le modèle
+
+• Utilisateurs (User) : Gérés en externe (fournisseur d'identité OIDC comme Keycloak, ou certificats clients X509). Kubernetes ne possède pas d'objet natif kind: User.
+• Comptes de service (ServiceAccount) : Réservés aux applications et aux Pods s'exécutant dans le cluster.
+• Rôles et liaisons (Role, ClusterRole, RoleBinding, ClusterRoleBinding) : Définissent ce qu'un utilisateur a le droit de faire.
+
+2. Créer un utilisateur via Certificat Client (Méthode manuelle)
+
+1. Générer une clé privée et une demande de signature de certificat (CSR) pour l'utilisateur (ex: jean) :bash
+openssl genrsa -out jean.key 2048
+openssl req -new -key jean.key -out jean.csr -subj "/CN=jean/O=equipe-dev"
+Utilisez le code avec précaution.
+2. Créer un objet CertificateSigningRequest dans Kubernetes et le valider via kubectl.
+3. Lier l'utilisateur à un rôle en créant un fichier rolebinding.yaml :yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jean-vue-pods
+  namespace: default
+subjects:
+- kind: User
+  name: jean
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: view
+  apiGroup: rbac.authorization.k8s.io
+Utilisez le code avec précaution.
+Appliquez-le :bash
+kubectl apply -f rolebinding.yaml
+Utilisez le code avec précaution.
+
+3. Outils et tableaux de bord pour simplifier la gestion
+
+Si vous cherchez une interface graphique ou un outil pour visualiser et gérer les comptes/permissions :
+• Kubernetes Dashboard : Offre une interface web officielle, mais nécessite la création de ServiceAccount ou de jetons pour s'y connecter.
+• Keycloak + OIDC : La solution d'entreprise la plus propre pour centraliser la gestion des utilisateurs (annuaire LDAP/AD, authentification 2FA) et synchroniser les groupes avec les rôles RBAC de Kubernetes.
+• Kubenav / Lens : Des interfaces de bureau tierces qui facilitent l'exploration des RoleBindings et des permissions de votre cluster.

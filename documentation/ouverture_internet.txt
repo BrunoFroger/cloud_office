@@ -1,0 +1,29 @@
+
+La méthode classique (NAT + NodePort) 🛠️
+
+Si vous préférez gérer vous-même le routage de bout en bout, vous devez mapper les ports en cascade : Internet ➔ Livebox ➔ Nœud Kubernetes ➔ Pod.
+
+Étape 1 : Configurer Kubernetes
+
+Sur un cluster local (à la maison), le type de service LoadBalancer ne fonctionne pas nativement comme sur AWS ou GCP (sauf si vous installez un outil comme MetalLB). Vous devez utiliser un service de type NodePort ou un Ingress Controller (comme Nginx Ingress).
+• Exposez votre application avec un service configuré en type: NodePort.
+• Kubernetes va attribuer un port aléatoire (généralement compris entre 30000 et 32767) sur la machine physique (le Node) qui héberge le cluster.
+
+Étape 2 : Fixer l'IP de votre machine dans la Livebox
+
+Pour éviter que l'adresse réseau de votre serveur ne change à chaque redémarrage de la box :
+1. Connectez-vous à l'interface de votre Livebox via un navigateur sur http://192.168.1.1.
+2. Allez dans Réseau > onglet DHCP.
+3. Dans la section Baux IP statiques, ajoutez votre nœud Kubernetes en lui attribuant une adresse IP fixe (ex: 192.168.1.50).
+
+Étape 3 : Configurer la redirection de port (NAT) sur la Livebox
+
+1. Restez dans l'interface Livebox et allez sur l'onglet NAT/PAT.
+2. Créez une nouvelle règle avec les paramètres suivants :
+	• Application/Service : Personnalisé (donnez le nom de votre application)
+	• Port interne : Le port NodePort généré par Kubernetes (ex: 32145)
+	• Port externe : Le port d'accès depuis Internet (ex: 80 pour du HTTP ou 443 pour du HTTPS)
+	• Protocole : TCP
+	• Équipement : Sélectionnez votre machine Kubernetes (celle fixée à l'étape 2).
+3. Cochez Activer et enregistrez.
+💡 Attention au Loopback (Nat Loopback) : Les Livebox d'Orange gèrent parfois mal le fait d'accéder à son IP publique depuis son propre réseau Wi-Fi/Ethernet local. Pour tester si l'ouverture fonctionne correctement, faites le test depuis votre smartphone en connexion 4G/5G (Wi-Fi désactivé).
