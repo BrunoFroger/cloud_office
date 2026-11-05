@@ -24,9 +24,12 @@ procedure d'installation
 - sur github
     - copier la cle ssh publique generee dans les settings
 - sur machine cible (serveur)
+    - installer git si necessaire
     - recuperer depot git d'install
         - git clone git@github.com:BrunoFroger/cloud_office.git
         - recuperer @IP (adresse_IP) : ifconfig | grep "192.168"
+- sur livebox (routeur internet)
+    - forcer DHCP a figer l'adresse IP de la machine
 - sur machine distante (dev)
     - copier cle ssh locale sur serveur afin de ne pas avoir a saisir le mot de passe lors des sessions ssh
         - ssh-copy-id k8smaster@k8smaster
@@ -35,5 +38,9 @@ procedure d'installation
             - recuperer script d'installation :
                 - cd cloud_office
                 - git pull
-                - . ./install.bash
-    
+            - installation communes a tous les noeuds
+                - . ./install_k8s.bash
+            - installation du master
+                - . ./install_k8s_master.bash
+            - installation des workers
+                - . ./install_k8s_worker.bash
