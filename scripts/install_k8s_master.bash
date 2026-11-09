@@ -8,8 +8,7 @@ echo "=== 1. Initialisation du cluster avec Kubeadm ==="
 # Nous définissons le CIDR pour les Pods (requis par la plupart des réseaux comme Cilium/Calico)
 sudo kubeadm init \
   --apiserver-advertise-address=$MASTER_IP \
-  --pod-network-cidr=10.244.0.0/16 \
-  --ignore-preflight-errors
+  --pod-network-cidr=10.244.0.0/16 
 
 echo "=== 2. Configuration de Kubectl pour votre utilisateur actif ==="
 mkdir -p $HOME/.kube
