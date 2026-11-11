@@ -1,0 +1,17 @@
+Procedure pour initialiser le WiFi sur Dell Lattitude E6400 (Ubuntu server)
+
+se connecter en filaire sur le serveur en filaire
+
+installer les composants reseau necessaire
+
+sudo apt install net-tools
+sudo apt install network-manager
+sudo apt install network-manager-tui
+
+sudo systemctl start NetworkManager
+sudo systemctl enable NetworkManager 
+sudo systemctl status NetworkManager 
+
+lancer le configurateur reseau 
+sudo nmtui
+renseigner les informations relative au reseau Wifi disponible
