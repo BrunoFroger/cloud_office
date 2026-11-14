@@ -15,3 +15,5 @@ sudo systemctl status NetworkManager
 lancer le configurateur reseau 
 sudo nmtui
 renseigner les informations relative au reseau Wifi disponible
+
+ne pas oublier d'initialiser la session sur github 

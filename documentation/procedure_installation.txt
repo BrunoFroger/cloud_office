@@ -1,0 +1,45 @@
+procedure d'installation
+
+- installer ubuntu server sur la machine
+    - options a selectionner
+        - installer openssh_server
+    - valeurs utilisées pour la configuration du serveur
+        - langage : francais
+        - clavier : francais
+        - nom :k8smaster
+        - nom machine k8smaster
+        - nom utilisateur : k8smaster
+        - passwd : k8s&master
+- apres installation sur machine cible (serveur)
+    - mettre a jour os
+        - sudo apt-get update
+        - sudo apt-get -y upgrade
+    - installer tools
+        - sudo apt install net-tools
+    - generer cle publique ssh 
+        - cd .ssh
+        - ssh-keygen -N "" -f id_rsa
+- sur github
+    - copier la cle ssh publique generee dans les settings
+- sur machine cible (serveur)
+    - installer git si necessaire
+    - recuperer depot git d'install
+        - git clone git@github.com:BrunoFroger/cloud_office.git
+        - recuperer @IP (adresse_IP) : ifconfig | grep "192.168"
+- sur livebox (routeur internet)
+    - forcer DHCP a figer l'adresse IP de la machine
+- sur machine distante (dev)
+    - copier cle ssh locale sur serveur afin de ne pas avoir a saisir le mot de passe lors des sessions ssh
+        - ssh-copy-id k8smaster@k8smaster
+    - ouvrir un terminal et se connecter au serveur
+        - ssh k8smaster@adresse_IP
+            - recuperer script d'installation :
+                - cd cloud_office
+                - git pull
+            - installation communes a tous les noeuds
+                - cd scripts
+                - . ./install_k8s.bash
+            - installation du master
+                - . ./install_k8s_master.bash
+            - installation des workers
+                - . ./install_k8s_worker.bash
