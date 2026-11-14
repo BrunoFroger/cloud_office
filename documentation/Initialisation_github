@@ -1,0 +1,16 @@
+Initialisation github pour le serveur Ubuntu
+
+creer la cle publique ssh si elle n'existe pas
+    cd
+    mkdir .ssh
+    cd .ssh
+    ssh-keygen -N "" -f id_rsa
+
+se connecter au compte github pour authoriser si necessaire la cle SSH
+dans le menu a droite, selectionner "Settings"
+dans le menu qui apparait a droite, selectionner "SSH and GPG Keys"
+cliquer sur "New DDH key" en haut a droite
+donner un nom a votre cle (title) ex nom de la machine
+faire un copier coller de la cle ssh générée ci dessus dans le cadre "Key"
+
+vous pouver maintenant utiliser git pour sauvegarder vos travaux sur votre machine

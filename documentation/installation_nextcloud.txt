@@ -1,0 +1,14 @@
+
+pour pouvoir se connecter a votre serveur nextcloud depuis internet, vous devez authoriser la connection en parametrant la variable trusted domains dans le fichier config de nextcloud
+
+pour une installationa avec snap le fichier de config est :
+/var/snap/nextcloud/current/nextcloud/config/config.php
+
+exemples de valeurs possibles 
+  'trusted_domains' => 
+  array (
+    0 => 'localhost',
+    1 => '192.168.0.*',
+    2 => 'bfrcloud.zapto.org',
+    3 => '*',
+  ),

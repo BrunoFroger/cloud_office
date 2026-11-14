@@ -1,0 +1,13 @@
+installation de certbot
+
+# Retirer d'abord le Certbot des dépôts, s'il est installé
+sudo apt remove certbot
+
+# Installer snapd puis Certbot
+sudo apt update && sudo apt install snapd -y
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+
+# Vérifier
+certbot --version
+
